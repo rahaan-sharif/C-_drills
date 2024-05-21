@@ -1,0 +1,67 @@
+//finding gcd of two integers:
+//finding lcm (lowest common multiple) of two integers
+#include <iostream>
+#include <math.h>
+using namespace std;
+
+int lcm(int, int);
+int gcd(int, int);
+
+int main(void)
+{
+	cout <<"gcd:   "<< gcd(100, 22)<<endl;
+	cout << "lcm:   " << lcm(15, 10) << endl;
+	return 0;
+}
+
+int lcm(int a, int b)
+{
+	int lcm = 1, c = 0;
+	if (a < b)
+	{
+		c = a;
+		a = b;
+		b = c;
+	}
+	int aa[100] = { 0 };
+	int bb[100] = { 0 };
+
+	int ja = 0;
+	for (int i = 2; i <= sqrt(a); i++)
+		if (a % i == 0)
+		{
+			aa[ja++] = i ;
+			aa[ja++] = a / i;
+		}
+	int jb = 0;
+	for (int i = 2; i <= sqrt(b); i++)
+		if (b % i == 0)
+		{
+			bb[jb++] = i ;
+			bb[jb++] = b / i;
+		}
+	
+	for (int i = 0; aa[i] != 0; i++)
+	{
+		lcm *= aa[i];
+		for (int j = 0; j < jb; j++)
+		{
+			if (bb[j] == aa[i])
+			{
+				bb[j] = 1;
+				break;
+			}
+		}
+	}
+	for (int i = 0; i < jb; i++)
+		lcm *= bb[i];
+	return lcm;
+}
+
+int gcd(int a, int b)
+{
+	int r = a % b;
+	if (r == 0)
+		return b;
+	gcd(b, r);
+}
